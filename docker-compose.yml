@@ -15,6 +15,25 @@ services:
       - ./:/var/www
     networks:
       - estudo
+  db_postgres_sql:
+    image: postgres:12
+    container_name: pgsql_estudo
+    restart: always
+    tty: true
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=estudo_db
+      - PGDATA=/var/lib/postgresql/data/db-files/
+    networks:
+      - estudo
+volumes:
+  postgres_data:
+    driver: local
 
 networks:
   estudo:
